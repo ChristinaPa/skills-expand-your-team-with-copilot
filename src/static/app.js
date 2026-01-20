@@ -603,7 +603,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareCopyBtn = activityCard.querySelector(".share-copy");
 
     shareTwitterBtn.addEventListener("click", () => handleShareTwitter(name, details.description, formattedSchedule));
-    shareFacebookBtn.addEventListener("click", () => handleShareFacebook(name));
+    shareFacebookBtn.addEventListener("click", () => handleShareFacebook(name, details.description, formattedSchedule));
     shareEmailBtn.addEventListener("click", () => handleShareEmail(name, details.description, formattedSchedule));
     shareCopyBtn.addEventListener("click", () => handleShareCopy(name));
 
@@ -842,7 +842,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(twitterUrl, '_blank', 'width=600,height=400');
   }
 
-  function handleShareFacebook(activityName) {
+  function handleShareFacebook(activityName, description, schedule) {
     const url = getActivityUrl(activityName);
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(facebookUrl, '_blank', 'width=600,height=400');
@@ -889,6 +889,7 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.select();
 
     try {
+      // Note: execCommand is deprecated but kept for older browser compatibility
       const successful = document.execCommand('copy');
       if (successful) {
         showMessage('Link copied to clipboard!', 'success');
