@@ -602,10 +602,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareEmailBtn = activityCard.querySelector(".share-email");
     const shareCopyBtn = activityCard.querySelector(".share-copy");
 
-    shareTwitterBtn.addEventListener("click", () => handleShareTwitter(name, details.description, formattedSchedule));
-    shareFacebookBtn.addEventListener("click", () => handleShareFacebook(name, details.description, formattedSchedule));
-    shareEmailBtn.addEventListener("click", () => handleShareEmail(name, details.description, formattedSchedule));
-    shareCopyBtn.addEventListener("click", () => handleShareCopy(name));
+    if (shareTwitterBtn) {
+      shareTwitterBtn.addEventListener("click", () => handleShareTwitter(name, details.description, formattedSchedule));
+    }
+    if (shareFacebookBtn) {
+      shareFacebookBtn.addEventListener("click", () => handleShareFacebook(name, details.description, formattedSchedule));
+    }
+    if (shareEmailBtn) {
+      shareEmailBtn.addEventListener("click", () => handleShareEmail(name, details.description, formattedSchedule));
+    }
+    if (shareCopyBtn) {
+      shareCopyBtn.addEventListener("click", () => handleShareCopy(name, details.description, formattedSchedule));
+    }
 
     // Add click handler for register button (only when authenticated)
     if (currentUser) {
@@ -855,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
-  function handleShareCopy(activityName) {
+  function handleShareCopy(activityName, description, schedule) {
     const url = getActivityUrl(activityName);
     
     // Try to use the modern clipboard API
